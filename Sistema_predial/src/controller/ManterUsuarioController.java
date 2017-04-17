@@ -3,6 +3,7 @@ package controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,14 +24,13 @@ public class ManterUsuarioController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
+		doPost(req, resp);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String pNome = req.getParameter("nome");
-		String pTipoFuncionario = req.getParameter("cargo");
 		String pEmpresa = req.getParameter("empresa");
 		String pHorario = req.getParameter("horario");
 		String pCpf = req.getParameter("cpf");
@@ -40,7 +40,6 @@ public class ManterUsuarioController extends HttpServlet {
 		Usuario usuario = new Usuario();
 		usuario.setCpf(pCpf);
 		usuario.setNome(pNome);
-		usuario.setTipoFuncionario(pTipoFuncionario);
 		usuario.setHorario(pHorario);
 		usuario.setEmpresa(pEmpresa);
 		usuario.setSenha(pSenha);
@@ -50,15 +49,10 @@ public class ManterUsuarioController extends HttpServlet {
 		us.criar(usuario);
 		usuario = us.carregar(usuario.getCpf());
 
-		PrintWriter out = resp.getWriter();
-		out.println("<html><head><title>Usuário Cadastrado</title></head><body>");
-		out.println("CPF: " + usuario.getCpf() + "<br>");
-		out.println("Nome: " + usuario.getNome() + "<br>");
-		out.println("Cargo: " + usuario.getTipoFuncionario() + "<br>");
-		out.println("Horário: " + usuario.getHorario() + "<br>");
-		out.println("Empresa: " + usuario.getEmpresa() + "<br>");
-		out.println("Senha: " + usuario.getSenha() + "<br>");
-		out.println("</body></html>");
+		req.setAttribute("usuario", usuario);
+		
+		RequestDispatcher view = req.getRequestDispatcher("index.jsp");
+		view.forward(req, resp);
 	}
 
 }
