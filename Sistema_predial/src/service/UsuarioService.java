@@ -1,42 +1,26 @@
 package service;
 
 import dao.UsuarioDAO;
-import transferObject.UsuarioTO;
+import model.Usuario;
 
 public class UsuarioService {
-	private UsuarioDAO usuarioDAO = new UsuarioDAO();
-	UsuarioTO usuarioTO;
+	UsuarioDAO dao = new UsuarioDAO();
 	
-	public boolean cadastrarUsuario(int tipo, String nome, String dataNasc, String endereco, String bairro, long telefone, String senha,
-		String empresa, String horEntrada, String horSaida, long cpf, boolean permissaoAC) {
-		
-		UsuarioTO usuarioTO = new UsuarioTO(tipo, nome, dataNasc, endereco, bairro, telefone, senha, empresa, horEntrada, horSaida, cpf, permissaoAC);
-		if (usuarioDAO.cadastrarUsuario(usuarioTO))
-			return true;
-		else
-			return false;
+	public void criar(Usuario usuario) {
+		dao.incluir(usuario);
 	}
 
-	public UsuarioTO consultarUsuario(long cpf) {
-		usuarioTO = usuarioDAO.consultarUsuario(cpf);
-		return usuarioTO;
+	public void atualizar(Usuario usuario) {
+		dao.atualizar(usuario);
 	}
 
-	public boolean alterarUsuario(int tipo, String nome, String dataNasc, String endereco, String bairro, long telefone, String senha,
-			String empresa, String horEntrada, String horSaida, long cpf, boolean permissaoAC){
-	
-		UsuarioTO usuarioTO = new UsuarioTO(tipo, nome, dataNasc, endereco, bairro, telefone, senha, empresa, horEntrada, horSaida, cpf, permissaoAC);
-		
-		if (usuarioDAO.alterarUsuario(cpf, usuarioTO))
-			return true;
-		else
-			return false;
+	public void excluir(Usuario usuario) {
+		dao.excluir(usuario);
 	}
 
-	public boolean excluirUsuario(long cpf) {
-		if (usuarioDAO.excluirUsuario(cpf))
-			return true;
-		else
-			return false;
+	public Usuario carregar(String cpf) {
+		Usuario usuario = dao.carregar(cpf);
+		return usuario;
 	}
+
 }

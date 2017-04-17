@@ -1,14 +1,16 @@
-CREATE TABLE `usuario` (
-  `usuarioCpf` BIGINT(11) NOT NULL ,
-  `usuarioTipo` INT NULL, 
-  `usuarioNome` VARCHAR(30) NULL ,
-  `usuarioDataNasc` DATE NULL,
-  `usuarioEndereco` VARCHAR(30) NULL,
-  `usuarioBairro` VARCHAR(30) NULL,
-  `usuarioTelefone` BIGINT(10) NULL,
-  `usuarioSenha` VARCHAR(7) NOT NULL,
-  `usuarioEmpresa` VARCHAR(30) NULL,
-  `usuarioHorarioAcessoInicial` VARCHAR(5) NULL,
-  `usuarioHorarioAcessoFinal` VARCHAR(5) NULL,
-  `usuarioPermissaoArCond` INT NULL,
-  PRIMARY KEY (`usuarioCpf`));
+create database sistemaPredial;
+	use sistemaPredial;
+
+CREATE table usuario(
+	cpf varchar(15) NOT NULL,
+    nome varchar(40),
+    tipoFuncionario varchar(40),
+    horario varchar(10),
+    empresa varchar(30),
+    senha varchar(20)
+);
+
+
+
+SELECT * FROM usuario;
+
